@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CSS Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffa500;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 5px;
+  text-align: center;
+  font-size: 25px;
+  color: white;
+}
+
+button {
+
+  margin: 5px;
+  text-align: center;
+  font-size: 20px;
+  color: black;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 30%;
+  height: 300px; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article {
+  float: left;
+  padding: 20px;
+  width: 70%;
+  background-color: #f1f1f1;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+
+
+    </style>
+</head>
+<body>
+<script>
+
+const OperationType = {
+    CANCEL : "CANCEL",
+    ADD_NEW_TAB:"ADD_NEW_TAB",
+    ALERT_MESSAGE:"ALERT_MESSAGE",
+    READ_CARD:"READ_CARD",
+    AUTH_CARD:"AUTH_CARD",
+    READ_INPUT:"READ_INPUT",
+    TIP_REQUEST:"TIP_REQUEST",
+    READ_SIGNATURE:"READ_SIGNATURE",
+    CONFIRM:"CONFIRM",
+    MANUAL:"MANUAL",
+    PRINT_RECEIPT:"PRINT_RECEIPT"
+}
+
+function onCommandCompletion(operationType,result){
+  alert("Operation Result : " +operationType+"\n"+JSON.stringify(result));
+}
+
+
+function cancel() {
+   cic.postCommand(OperationType.CANCEL)
+}
+
+function addNewTab() {
+    cic.postCommand(OperationType.ADD_NEW_TAB,getTabUrlPacket())
+}
+
+function toast() {
+   cic.postCommand(OperationType.ALERT_MESSAGE,getToastPacket())
+}
+
+function readCard() {
+    cic.postCommand(OperationType.READ_CARD,getReadCardPacket())
+}
+
+function getSignature(){
+ cic.postCommand(OperationType.READ_SIGNATURE,getSignaturePacket())
+}
+
+function authCard() {
+    cic.postCommand(OperationType.AUTH_CARD,getAuthCardPacket())
+}
+
+function readInputPhone(){
+    cic.postCommand(OperationType.READ_INPUT,getReadInputPhonePacket())
+}
+function readInputAmount(){
+    cic.postCommand(OperationType.READ_INPUT,getReadInputAmountPacket())
+}
+function readInputAvs(){
+    cic.postCommand(OperationType.READ_INPUT,getReadInputAVSPacket())
+}
+function readInputDate(){
+    cic.postCommand(OperationType.READ_INPUT,getReadInputDatePacket())
+}
+function readInputNumeric(){
+    cic.postCommand(OperationType.READ_INPUT,getReadInputNUMERICPacket())
+}
+function readInputAlphaNumeric(){
+    cic.postCommand(OperationType.READ_INPUT,getReadInputALPHANUMERICPacket())
+}
+
+function readConfirmation(){
+    cic.postCommand(OperationType.CONFIRM,getReadConfirmPacket())
+}
+
+function requestTip(){
+    cic.postCommand(OperationType.TIP_REQUEST,getTipPacket())
+}
+
+function readSignature(){
+    cic.postCommand(OperationType.READ_SIGNATURE)
+}
+
+function readConfirmation(){
+    cic.postCommand(OperationType.CONFIRM)
+}
+
+function authManual(){
+    cic.postCommand(OperationType.MANUAL,getAuthManualPacket())
+}
+
+function printReceipt(){
+    cic.postCommand(OperationType.PRINT_RECEIPT,getPrintReceiptPacket())
+}
+
+function getReadConfirmPacket(){
+        return JSON.stringify({
+                 "prompt":"Please confirm"
+            })
+}
+
+function requestTip(){
+cic.postCommand(OperationType.TIP_REQUEST,getTipRequestPacket())
+}
+
+function getTipRequestPacket(){
+ return JSON.stringify({
+                 "prompt":"Choose tip",
+                 "amount":"500",
+                 "tipPercentPresets":[10,15,20]
+            })
+}
+function getReadCardPacket(){
+        return JSON.stringify({
+                 "amount":"100"
+            })
+}
+
+function getSignaturePacket(){
+ return JSON.stringify({
+                  "prompt":"Please sign"
+            })
+}
+
+function getAuthCardPacket(){
+        return JSON.stringify({
+        "amount":"200",
+        "invoiceId":"1232"
+        })
+ }
+
+/*
+MMYY - Date Entry
+    "MMYY" - response: "0516"
+    Supported DATE FORMAT  MMYY , MMDDYY , MMDDYYYY
+Nx[,y] - Numeric Entry
+      x = minimum number of digits (if y not specified, user input length must match x)
+      y = maximum number of digits (optional, max 32)
+      Example 1
+         "N5" - response: "19406"
+      Example 2
+         "N5,9" -
+         response: "08081"
+         or
+         response: "080819876"
+ANx[,y] - Alpha Numeric Entry
+      x = minimum number of characters (if y not specified, user input length must match x)
+      y = maximum number of characters (optional, max 32)
+      Example 1
+          "AN8" - response:  "A1B2C3D4"
+      Example 2
+         "AN1,99" -
+         response: "A"
+         or
+         response: "A123"
+*/
+const InputFormat = {
+    AMOUNT : "AMOUNT",
+    DATE:"MMDDYY",
+    PHONE:"PHONE",
+    NUMERIC:"N5",
+    ALPHANUMERIC:"AN1"
+}
+
+ function getReadInputPhonePacket(){
+       return JSON.stringify({
+           "prompt":"Enter phone",
+           "format":InputFormat.PHONE
+       })
+ }
+ function getReadInputDatePacket(){
+       return JSON.stringify({
+           "prompt":"Enter Date",
+           "format":InputFormat.DATE
+       })
+ }
+ function getReadInputAmountPacket(){
+       return JSON.stringify({
+           "prompt":"Enter AMOUNT",
+           "format":InputFormat.AMOUNT
+       })
+ }
+
+ function getReadInputNUMERICPacket(){
+       return JSON.stringify({
+           "prompt":"Enter NUMERIC",
+           "format":InputFormat.NUMERIC
+       })
+ }
+function getReadInputALPHANUMERICPacket(){
+       return JSON.stringify({
+           "prompt":"Enter ALPHANUMERIC",
+           "format":InputFormat.ALPHANUMERIC
+       })
+ }
+
+ function getTipPacket(){
+      return JSON.stringify({
+          "amount":"1000",
+          "includeCustomTipAmount":"true",
+          "tipPercentPresets":[10,15,20]
+      })
+ }
+
+ function getToastPacket(){
+      return JSON.stringify({"msg":"Hello everyone..."})
+ }
+
+ function getTabUrlPacket(){
+      return JSON.stringify({"url":"http://www.yahoo.com"})
+ }
+
+
+
+ function getPrintReceiptPacket(){
+    return JSON.stringify({
+                  "orderId": "C045UT22320014-20240610021737"
+             })
+ }
+
+ function getAuthManualPacket() {
+     return JSON.stringify({
+        "amount":"200",
+        "invoiceId":"1232"
+        })
+ }
+
+
+
+
+</script>
+<header>
+    <h5>Javascript Operations</h5>
+</header>
+<br/>
+<br/>
+<br/>
+<div>
+    <table>
+
+        <tr>
+            <td><button type="button" onclick=toast()> Ping</button></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td> <button type="button" onclick=addNewTab('http://www.yahoo.com')> Add New Tab</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick=readCard()>Read Card</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick=getSignature()>Signature</button></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td> <button type="button" onclick=authCard()> Auth Card</button></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td> <button type="button" onclick=authManual()> Auth Manual</button></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><button type="button" onclick=printReceipt()> Print Receipt</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick=readConfirmation()>Confirm</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick=readInputPhone()> Read Input PHONE</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick=readInputDate()> Read Input DATE</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick=readInputAmount()> Read Input AMOUNT</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick=readInputNumeric()> Read Input NUMERIC</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick=readInputAlphaNumeric()> Read Input ALPHA-NUMERIC</button></td>
+            <td></td>
+        </tr>
+
+
+        <tr>
+            <td><button type="button" onclick=requestTip()> Tip Request</button></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td><button type="button" onclick=cancel()> Cancel</button></td>
+            <td></td>
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+    <br/>
+
+
+
+    <footer>
+        <p>TIPS Webview Mode</p>
+    </footer>
+
+</body>
+</html>
