@@ -170,10 +170,6 @@ function readSignature(){
     cic.postCommand(OperationType.READ_SIGNATURE)
 }
 
-function readConfirmation(){
-    cic.postCommand(OperationType.CONFIRM)
-}
-
 function authManual(){
     cic.postCommand(OperationType.MANUAL,getAuthManualPacket())
 }
