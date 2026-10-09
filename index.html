@@ -1,220 +1,572 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <title>CSS Template</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <title>POS Test Console</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"
+      defer
+    ></script>
     <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #ffa500;
-}
-
-/* Style the header */
-header {
-  background-color: #666;
-  padding: 5px;
-  text-align: center;
-  font-size: 25px;
-  color: white;
-}
-
-button {
-
-  margin: 5px;
-  text-align: center;
-  font-size: 20px;
-  color: black;
-}
-
-/* Create two columns/boxes that floats next to each other */
-nav {
-  float: left;
-  width: 30%;
-  height: 300px; /* only for demonstration, should be removed */
-  background: #ccc;
-  padding: 20px;
-}
-
-/* Style the list inside the menu */
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-article {
-  float: left;
-  padding: 20px;
-  width: 70%;
-  background-color: #f1f1f1;
-  height: 300px; /* only for demonstration, should be removed */
-}
-
-/* Clear floats after the columns */
-section::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Style the footer */
-footer {
-  background-color: #777;
-  padding: 10px;
-  text-align: center;
-  color: white;
-}
-
-/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
-@media (max-width: 600px) {
-  nav, article {
-    width: 100%;
-    height: auto;
-  }
-}
-
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-
-
+      :root {
+        color-scheme: light;
+        --ink: #253831;
+        --muted: #67796f;
+        --line: #dfe7e2;
+        --accent: #176b51;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f7f9f8;
+        color: var(--ink);
+        font:
+          14px "DM Sans",
+          sans-serif;
+        letter-spacing: 0;
+      }
+      button {
+        font: inherit;
+      }
+      svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        stroke-width: 1.7;
+      }
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+      header {
+        background: white;
+        border-bottom: 1px solid var(--line);
+      }
+      .topbar {
+        max-width: 1040px;
+        margin: auto;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+      }
+      .brand-icon {
+        display: grid;
+        place-items: center;
+        width: 33px;
+        height: 33px;
+        background: #e6f2eb;
+        border-radius: 7px;
+        color: var(--accent);
+      }
+      .mode {
+        color: var(--muted);
+        font:
+          11px ui-monospace,
+          monospace;
+      }
+      main {
+        max-width: 1040px;
+        margin: auto;
+        padding: 34px 30px 20px;
+      }
+      .page-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 29px;
+      }
+      h1 {
+        font:
+          800 27px/1.35 "Manrope",
+          sans-serif;
+      }
+      .subtitle {
+        margin-top: 7px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .connection {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 10px;
+        background: #fff3e6;
+        border: 1px solid #f1dfc7;
+        border-radius: 5px;
+        color: #8c5b23;
+        font-size: 11px;
+        white-space: nowrap;
+      }
+      .connection::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .connection.available {
+        color: var(--accent);
+        background: #eaf5ee;
+        border-color: #d4e6da;
+      }
+      .command-group {
+        padding: 23px 0;
+        border-top: 1px solid var(--line);
+        animation: reveal 0.4s ease both;
+      }
+      .command-group:nth-of-type(2) {
+        animation-delay: 0.06s;
+      }
+      .command-group:nth-of-type(3) {
+        animation-delay: 0.12s;
+      }
+      .group-heading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .group-heading h2 {
+        font:
+          700 13px "Manrope",
+          sans-serif;
+      }
+      .group-number {
+        color: #87958d;
+        font:
+          11px ui-monospace,
+          monospace;
+      }
+      .group-count {
+        margin-left: auto;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .command-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .command-button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        min-height: 76px;
+        padding: 14px 16px;
+        text-align: left;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        color: var(--ink);
+        background: white;
+        cursor: pointer;
+        transition:
+          transform 0.18s ease,
+          border-color 0.18s ease,
+          box-shadow 0.18s ease,
+          background 0.18s ease;
+      }
+      .command-button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+      .command-button:active {
+        transform: translateY(1px) scale(0.985);
+        background: #f0f6f2;
+      }
+      .button-icon {
+        display: grid;
+        place-items: center;
+        flex: 0 0 36px;
+        height: 36px;
+        border-radius: 6px;
+        background: #eaf4ee;
+        color: #357252;
+        transition: transform 0.2s ease;
+      }
+      .inputs .button-icon {
+        background: #edf0fa;
+        color: #6279a5;
+      }
+      .utilities .button-icon {
+        background: #fbf1e5;
+        color: #9b733d;
+      }
+      .button-label {
+        display: block;
+        min-width: 0;
+      }
+      .button-label strong {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .button-label small {
+        display: block;
+        margin-top: 5px;
+        font:
+          10px ui-monospace,
+          monospace;
+        color: var(--muted);
+        overflow-wrap: anywhere;
+      }
+      .button-arrow {
+        margin-left: auto;
+        width: 14px;
+        height: 14px;
+        color: #96a69b;
+        transition:
+          transform 0.18s ease,
+          color 0.18s ease;
+      }
+      .command-button.danger {
+        border-color: #ecd9d5;
+      }
+      .danger .button-icon {
+        background: #fbeeea;
+        color: #aa5d51;
+      }
+      .danger .button-label strong {
+        color: #9a4c40;
+      }
+      .command-button.triggered {
+        animation: command-pulse 0.5s ease;
+      }
+      .command-button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        transform: none;
+        box-shadow: none;
+      }
+      .command-button.loading {
+        opacity: 1;
+        cursor: wait;
+        border-color: #8ab69d;
+        background: #f0f8f3;
+      }
+      .loading .button-icon {
+        position: relative;
+        transform: none;
+      }
+      .loading .button-icon svg {
+        visibility: hidden;
+      }
+      .loading .button-icon::after {
+        content: "";
+        position: absolute;
+        width: 19px;
+        height: 19px;
+        border: 2px solid #176b5126;
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: loading-spin 0.8s linear infinite;
+      }
+      .loading .button-label small {
+        color: var(--accent);
+      }
+      .loading .button-arrow {
+        visibility: hidden;
+      }
+      .command-button.loading::after {
+        content: "";
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        bottom: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #76ae8f, transparent);
+        background-size: 200% 100%;
+        animation: loading-track 1.5s ease-in-out infinite;
+      }
+      .feedback {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-height: 45px;
+        border-top: 1px solid var(--line);
+        padding: 13px 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.6;
+      }
+      .feedback svg {
+        width: 16px;
+        height: 16px;
+      }
+      .feedback.error {
+        color: #9a4c40;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        border-top: 1px solid var(--line);
+        padding: 16px 0;
+        color: var(--muted);
+        font-size: 10px;
+      }
+      @media (hover: hover) {
+        .command-button:hover {
+          transform: translateY(-2px);
+          border-color: #a1bfac;
+          box-shadow: 0 4px 10px #233e2e09;
+        }
+        .command-button:hover .button-icon {
+          transform: scale(1.07);
+        }
+        .command-button:hover .button-arrow {
+          transform: translateX(3px);
+          color: var(--accent);
+        }
+        .command-button.danger:hover {
+          border-color: #d79b8d;
+          background: #fffaf8;
+        }
+      }
+      @keyframes reveal {
+        from {
+          opacity: 0;
+          transform: translateY(7px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes command-pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 #176b5100;
+        }
+        35% {
+          box-shadow: 0 0 0 4px #176b5120;
+        }
+      }
+      @keyframes loading-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes loading-track {
+        from {
+          background-position: 200% 0;
+        }
+        to {
+          background-position: -200% 0;
+        }
+      }
+      @media (max-width: 760px) {
+        .command-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .topbar {
+          padding: 17px 20px;
+        }
+        main {
+          padding: 25px 20px 12px;
+        }
+        .page-heading {
+          align-items: flex-start;
+          flex-wrap: wrap;
+          gap: 14px;
+          margin-bottom: 23px;
+        }
+        h1 {
+          font-size: 24px;
+        }
+        .command-button {
+          padding: 12px;
+          gap: 9px;
+        }
+        .button-arrow {
+          display: none;
+        }
+      }
+      @media (max-width: 400px) {
+        .topbar {
+          padding: 15px 16px;
+        }
+        main {
+          padding: 23px 16px 10px;
+        }
+        .command-button {
+          gap: 8px;
+          padding: 11px 9px;
+        }
+        .button-icon {
+          flex-basis: 27px;
+          height: 30px;
+        }
+        .button-icon svg {
+          width: 17px;
+          height: 17px;
+        }
+        .button-label strong {
+          font-size: 11px;
+        }
+        .button-label small {
+          font-size: 9px;
+        }
+        .mode {
+          font-size: 10px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
     </style>
-</head>
-<body>
-<script>
+  </head>
+  <body>
+    <script>
+      const OperationType = {
+        CANCEL: "CANCEL",
+        ADD_NEW_TAB: "ADD_NEW_TAB",
+        ALERT_MESSAGE: "ALERT_MESSAGE",
+        READ_CARD: "READ_CARD",
+        AUTH_CARD: "AUTH_CARD",
+        READ_INPUT: "READ_INPUT",
+        TIP_REQUEST: "TIP_REQUEST",
+        READ_SIGNATURE: "READ_SIGNATURE",
+        CONFIRM: "CONFIRM",
+        MANUAL: "MANUAL",
+        PRINT_RECEIPT: "PRINT_RECEIPT",
+      };
 
-const OperationType = {
-    CANCEL : "CANCEL",
-    ADD_NEW_TAB:"ADD_NEW_TAB",
-    ALERT_MESSAGE:"ALERT_MESSAGE",
-    READ_CARD:"READ_CARD",
-    AUTH_CARD:"AUTH_CARD",
-    READ_INPUT:"READ_INPUT",
-    TIP_REQUEST:"TIP_REQUEST",
-    READ_SIGNATURE:"READ_SIGNATURE",
-    CONFIRM:"CONFIRM",
-    MANUAL:"MANUAL",
-    PRINT_RECEIPT:"PRINT_RECEIPT"
-}
+      function onCommandCompletion(operationType, result) {
+        completeCommandLoading(operationType);
+        alert(
+          "Operation Result : " + operationType + "\n" + JSON.stringify(result),
+        );
+      }
 
-function onCommandCompletion(operationType,result){
-  alert("Operation Result : " +operationType+"\n"+JSON.stringify(result));
-}
+      function cancel() {
+        cic.postCommand(OperationType.CANCEL);
+      }
 
+      function addNewTab() {
+        cic.postCommand(OperationType.ADD_NEW_TAB, getTabUrlPacket());
+      }
 
-function cancel() {
-   cic.postCommand(OperationType.CANCEL)
-}
+      function toast() {
+        cic.postCommand(OperationType.ALERT_MESSAGE, getToastPacket());
+      }
 
-function addNewTab() {
-    cic.postCommand(OperationType.ADD_NEW_TAB,getTabUrlPacket())
-}
+      function readCard() {
+        cic.postCommand(OperationType.READ_CARD, getReadCardPacket());
+      }
 
-function toast() {
-   cic.postCommand(OperationType.ALERT_MESSAGE,getToastPacket())
-}
+      function getSignature() {
+        cic.postCommand(OperationType.READ_SIGNATURE, getSignaturePacket());
+      }
 
-function readCard() {
-    cic.postCommand(OperationType.READ_CARD,getReadCardPacket())
-}
+      function authCard() {
+        cic.postCommand(OperationType.AUTH_CARD, getAuthCardPacket());
+      }
 
-function getSignature(){
- cic.postCommand(OperationType.READ_SIGNATURE,getSignaturePacket())
-}
+      function readInputPhone() {
+        cic.postCommand(OperationType.READ_INPUT, getReadInputPhonePacket());
+      }
+      function readInputAmount() {
+        cic.postCommand(OperationType.READ_INPUT, getReadInputAmountPacket());
+      }
+      function readInputAvs() {
+        cic.postCommand(OperationType.READ_INPUT, getReadInputAVSPacket());
+      }
+      function readInputDate() {
+        cic.postCommand(OperationType.READ_INPUT, getReadInputDatePacket());
+      }
+      function readInputNumeric() {
+        cic.postCommand(OperationType.READ_INPUT, getReadInputNUMERICPacket());
+      }
+      function readInputAlphaNumeric() {
+        cic.postCommand(
+          OperationType.READ_INPUT,
+          getReadInputALPHANUMERICPacket(),
+        );
+      }
 
-function authCard() {
-    cic.postCommand(OperationType.AUTH_CARD,getAuthCardPacket())
-}
+      function readConfirmation() {
+        cic.postCommand(OperationType.CONFIRM, getReadConfirmPacket());
+      }
 
-function readInputPhone(){
-    cic.postCommand(OperationType.READ_INPUT,getReadInputPhonePacket())
-}
-function readInputAmount(){
-    cic.postCommand(OperationType.READ_INPUT,getReadInputAmountPacket())
-}
-function readInputAvs(){
-    cic.postCommand(OperationType.READ_INPUT,getReadInputAVSPacket())
-}
-function readInputDate(){
-    cic.postCommand(OperationType.READ_INPUT,getReadInputDatePacket())
-}
-function readInputNumeric(){
-    cic.postCommand(OperationType.READ_INPUT,getReadInputNUMERICPacket())
-}
-function readInputAlphaNumeric(){
-    cic.postCommand(OperationType.READ_INPUT,getReadInputALPHANUMERICPacket())
-}
+      function requestTip() {
+        cic.postCommand(OperationType.TIP_REQUEST, getTipPacket());
+      }
 
-function readConfirmation(){
-    cic.postCommand(OperationType.CONFIRM,getReadConfirmPacket())
-}
+      function readSignature() {
+        cic.postCommand(OperationType.READ_SIGNATURE);
+      }
 
-function requestTip(){
-    cic.postCommand(OperationType.TIP_REQUEST,getTipPacket())
-}
+      function authManual() {
+        cic.postCommand(OperationType.MANUAL, getAuthManualPacket());
+      }
 
-function readSignature(){
-    cic.postCommand(OperationType.READ_SIGNATURE)
-}
+      function printReceipt() {
+        cic.postCommand(OperationType.PRINT_RECEIPT, getPrintReceiptPacket());
+      }
 
-function authManual(){
-    cic.postCommand(OperationType.MANUAL,getAuthManualPacket())
-}
-
-function printReceipt(){
-    cic.postCommand(OperationType.PRINT_RECEIPT,getPrintReceiptPacket())
-}
-
-function getReadConfirmPacket(){
+      function getReadConfirmPacket() {
         return JSON.stringify({
-                 "prompt":"Please confirm"
-            })
-}
+          prompt: "Please confirm",
+        });
+      }
 
-function requestTip(){
-cic.postCommand(OperationType.TIP_REQUEST,getTipRequestPacket())
-}
+      function requestTip() {
+        cic.postCommand(OperationType.TIP_REQUEST, getTipRequestPacket());
+      }
 
-function getTipRequestPacket(){
- return JSON.stringify({
-                 "prompt":"Choose tip",
-                 "amount":"500",
-                 "tipPercentPresets":[10,15,20]
-            })
-}
-function getReadCardPacket(){
+      function getTipRequestPacket() {
         return JSON.stringify({
-                 "amount":"100"
-            })
-}
-
-function getSignaturePacket(){
- return JSON.stringify({
-                  "prompt":"Please sign"
-            })
-}
-
-function getAuthCardPacket(){
+          prompt: "Choose tip",
+          amount: "500",
+          tipPercentPresets: [10, 15, 20],
+        });
+      }
+      function getReadCardPacket() {
         return JSON.stringify({
-        "amount":"200",
-        "invoiceId":"1232"
-        })
- }
+          amount: "100",
+        });
+      }
 
-/*
+      function getSignaturePacket() {
+        return JSON.stringify({
+          prompt: "Please sign",
+        });
+      }
+
+      function getAuthCardPacket() {
+        return JSON.stringify({
+          amount: "200",
+          invoiceId: "1232",
+        });
+      }
+
+      /*
 MMYY - Date Entry
     "MMYY" - response: "0516"
     Supported DATE FORMAT  MMYY , MMDDYY , MMDDYYYY
@@ -239,169 +591,368 @@ ANx[,y] - Alpha Numeric Entry
          or
          response: "A123"
 */
-const InputFormat = {
-    AMOUNT : "AMOUNT",
-    DATE:"MMDDYY",
-    PHONE:"PHONE",
-    NUMERIC:"N5",
-    ALPHANUMERIC:"AN1"
-}
+      const InputFormat = {
+        AMOUNT: "AMOUNT",
+        DATE: "MMDDYY",
+        PHONE: "PHONE",
+        NUMERIC: "N5",
+        ALPHANUMERIC: "AN1",
+      };
 
- function getReadInputPhonePacket(){
-       return JSON.stringify({
-           "prompt":"Enter phone",
-           "format":InputFormat.PHONE
-       })
- }
- function getReadInputDatePacket(){
-       return JSON.stringify({
-           "prompt":"Enter Date",
-           "format":InputFormat.DATE
-       })
- }
- function getReadInputAmountPacket(){
-       return JSON.stringify({
-           "prompt":"Enter AMOUNT",
-           "format":InputFormat.AMOUNT
-       })
- }
+      function getReadInputPhonePacket() {
+        return JSON.stringify({
+          prompt: "Enter phone",
+          format: InputFormat.PHONE,
+        });
+      }
+      function getReadInputDatePacket() {
+        return JSON.stringify({
+          prompt: "Enter Date",
+          format: InputFormat.DATE,
+        });
+      }
+      function getReadInputAmountPacket() {
+        return JSON.stringify({
+          prompt: "Enter AMOUNT",
+          format: InputFormat.AMOUNT,
+        });
+      }
 
- function getReadInputNUMERICPacket(){
-       return JSON.stringify({
-           "prompt":"Enter NUMERIC",
-           "format":InputFormat.NUMERIC
-       })
- }
-function getReadInputALPHANUMERICPacket(){
-       return JSON.stringify({
-           "prompt":"Enter ALPHANUMERIC",
-           "format":InputFormat.ALPHANUMERIC
-       })
- }
+      function getReadInputNUMERICPacket() {
+        return JSON.stringify({
+          prompt: "Enter NUMERIC",
+          format: InputFormat.NUMERIC,
+        });
+      }
+      function getReadInputALPHANUMERICPacket() {
+        return JSON.stringify({
+          prompt: "Enter ALPHANUMERIC",
+          format: InputFormat.ALPHANUMERIC,
+        });
+      }
 
- function getTipPacket(){
-      return JSON.stringify({
-          "amount":"1000",
-          "includeCustomTipAmount":"true",
-          "tipPercentPresets":[10,15,20]
-      })
- }
+      function getTipPacket() {
+        return JSON.stringify({
+          amount: "1000",
+          includeCustomTipAmount: "true",
+          tipPercentPresets: [10, 15, 20],
+        });
+      }
 
- function getToastPacket(){
-      return JSON.stringify({"msg":"Hello everyone..."})
- }
+      function getToastPacket() {
+        return JSON.stringify({ msg: "Hello everyone..." });
+      }
 
- function getTabUrlPacket(){
-      return JSON.stringify({"url":"http://www.yahoo.com"})
- }
+      function getTabUrlPacket() {
+        return JSON.stringify({ url: "http://www.yahoo.com" });
+      }
 
+      function getPrintReceiptPacket() {
+        return JSON.stringify({
+          orderId: "C045UT22320014-20240610021737",
+        });
+      }
 
+      function getAuthManualPacket() {
+        return JSON.stringify({
+          amount: "200",
+          invoiceId: "1232",
+        });
+      }
+    </script>
+    <header>
+      <div class="topbar">
+        <div class="brand">
+          <span class="brand-icon"><i data-lucide="terminal"></i></span>TIPS
+          developer
+        </div>
+        <span class="mode">WEBVIEW / POS</span>
+      </div>
+    </header>
+    <main>
+      <div class="page-heading">
+        <div>
+          <h1>POS test console</h1>
+          <p class="subtitle">Javascript operations</p>
+        </div>
+        <span class="connection" id="connection" role="status"
+          >Host bridge unavailable</span
+        >
+      </div>
+      <section class="command-group" aria-labelledby="payments-heading">
+        <div class="group-heading">
+          <span class="group-number">01</span>
+          <h2 id="payments-heading">Card &amp; payment</h2>
+          <span class="group-count">6 commands</span>
+        </div>
+        <div class="command-grid">
+          <button class="command-button" type="button" data-action="readCard">
+            <span class="button-icon"><i data-lucide="scan-line"></i></span
+            ><span class="button-label"
+              ><strong>Read card</strong><small>READ_CARD</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button class="command-button" type="button" data-action="authCard">
+            <span class="button-icon"><i data-lucide="shield-check"></i></span
+            ><span class="button-label"
+              ><strong>Authorize card</strong><small>AUTH_CARD</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button class="command-button" type="button" data-action="authManual">
+            <span class="button-icon"><i data-lucide="keyboard"></i></span
+            ><span class="button-label"
+              ><strong>Manual authorization</strong><small>MANUAL</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button
+            class="command-button"
+            type="button"
+            data-action="getSignature"
+          >
+            <span class="button-icon"><i data-lucide="signature"></i></span
+            ><span class="button-label"
+              ><strong>Signature</strong><small>READ_SIGNATURE</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button class="command-button" type="button" data-action="requestTip">
+            <span class="button-icon"><i data-lucide="hand-coins"></i></span
+            ><span class="button-label"
+              ><strong>Request tip</strong><small>TIP_REQUEST</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button
+            class="command-button"
+            type="button"
+            data-action="printReceipt"
+          >
+            <span class="button-icon"><i data-lucide="receipt-text"></i></span
+            ><span class="button-label"
+              ><strong>Print receipt</strong><small>PRINT_RECEIPT</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+        </div>
+      </section>
+      <section class="command-group inputs" aria-labelledby="input-heading">
+        <div class="group-heading">
+          <span class="group-number">02</span>
+          <h2 id="input-heading">Read input</h2>
+          <span class="group-count">5 commands</span>
+        </div>
+        <div class="command-grid">
+          <button
+            class="command-button"
+            type="button"
+            data-action="readInputPhone"
+          >
+            <span class="button-icon"><i data-lucide="phone"></i></span
+            ><span class="button-label"
+              ><strong>Phone number</strong><small>PHONE</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button
+            class="command-button"
+            type="button"
+            data-action="readInputAmount"
+          >
+            <span class="button-icon"><i data-lucide="banknote"></i></span
+            ><span class="button-label"
+              ><strong>Amount</strong><small>AMOUNT</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button
+            class="command-button"
+            type="button"
+            data-action="readInputDate"
+          >
+            <span class="button-icon"><i data-lucide="calendar-days"></i></span
+            ><span class="button-label"
+              ><strong>Date</strong><small>MMDDYY</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button
+            class="command-button"
+            type="button"
+            data-action="readInputNumeric"
+          >
+            <span class="button-icon"><i data-lucide="hash"></i></span
+            ><span class="button-label"
+              ><strong>Numeric</strong><small>N5</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button
+            class="command-button"
+            type="button"
+            data-action="readInputAlphaNumeric"
+          >
+            <span class="button-icon"
+              ><i data-lucide="text-cursor-input"></i></span
+            ><span class="button-label"
+              ><strong>Alphanumeric</strong><small>AN1</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+        </div>
+      </section>
+      <section
+        class="command-group utilities"
+        aria-labelledby="utilities-heading"
+      >
+        <div class="group-heading">
+          <span class="group-number">03</span>
+          <h2 id="utilities-heading">Utilities</h2>
+          <span class="group-count">4 commands</span>
+        </div>
+        <div class="command-grid">
+          <button class="command-button" type="button" data-action="toast">
+            <span class="button-icon"><i data-lucide="bell-ring"></i></span
+            ><span class="button-label"
+              ><strong>Ping</strong><small>ALERT_MESSAGE</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button class="command-button" type="button" data-action="addNewTab">
+            <span class="button-icon"><i data-lucide="external-link"></i></span
+            ><span class="button-label"
+              ><strong>Add new tab</strong><small>ADD_NEW_TAB</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button
+            class="command-button"
+            type="button"
+            data-action="readConfirmation"
+          >
+            <span class="button-icon"><i data-lucide="circle-check"></i></span
+            ><span class="button-label"
+              ><strong>Confirm</strong><small>CONFIRM</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+          <button
+            class="command-button danger"
+            type="button"
+            data-action="cancel"
+          >
+            <span class="button-icon"><i data-lucide="circle-x"></i></span
+            ><span class="button-label"
+              ><strong>Cancel operation</strong><small>CANCEL</small></span
+            ><i class="button-arrow" data-lucide="arrow-right"></i>
+          </button>
+        </div>
+      </section>
+      <div class="feedback" id="feedback" role="status" aria-live="polite">
+        <i data-lucide="info"></i
+        ><span id="feedback-message">No commands sent.</span>
+      </div>
+      <footer>
+        <span>TIPS Webview Mode</span><span>POS developer tools</span>
+      </footer>
+    </main>
+    <script>
+      const commandOperations = {
+        readCard: OperationType.READ_CARD,
+        authCard: OperationType.AUTH_CARD,
+        authManual: OperationType.MANUAL,
+        getSignature: OperationType.READ_SIGNATURE,
+        requestTip: OperationType.TIP_REQUEST,
+        printReceipt: OperationType.PRINT_RECEIPT,
+        readInputPhone: OperationType.READ_INPUT,
+        readInputAmount: OperationType.READ_INPUT,
+        readInputDate: OperationType.READ_INPUT,
+        readInputNumeric: OperationType.READ_INPUT,
+        readInputAlphaNumeric: OperationType.READ_INPUT,
+        toast: OperationType.ALERT_MESSAGE,
+        addNewTab: OperationType.ADD_NEW_TAB,
+        readConfirmation: OperationType.CONFIRM,
+        cancel: OperationType.CANCEL,
+      };
+      const loadingCommands = new Map();
 
- function getPrintReceiptPacket(){
-    return JSON.stringify({
-                  "orderId": "C045UT22320014-20240610021737"
-             })
- }
+      function updateCommandButtons() {
+        document.querySelectorAll("[data-action]").forEach((button) => {
+          button.disabled =
+            button.dataset.action === "cancel"
+              ? loadingCommands.has(OperationType.CANCEL)
+              : loadingCommands.size > 0;
+        });
+      }
 
- function getAuthManualPacket() {
-     return JSON.stringify({
-        "amount":"200",
-        "invoiceId":"1232"
-        })
- }
+      function stopCommandLoading(operationType) {
+        const button = loadingCommands.get(operationType);
+        if (!button) return;
+        button.classList.remove("loading");
+        button.removeAttribute("aria-busy");
+        button.querySelector("small").textContent =
+          button.dataset.originalDetail;
+        loadingCommands.delete(operationType);
+        updateCommandButtons();
+      }
 
+      function completeCommandLoading(operationType) {
+        if (!loadingCommands.has(operationType)) return;
+        const cancelling = loadingCommands.has(OperationType.CANCEL);
+        if (cancelling) {
+          Array.from(loadingCommands.keys()).forEach(stopCommandLoading);
+        } else {
+          stopCommandLoading(operationType);
+        }
+        document.getElementById("feedback").classList.remove("error");
+        document.getElementById("feedback-message").textContent =
+          operationType + " response received.";
+      }
 
+      function updateHostStatus() {
+        const available =
+          typeof cic !== "undefined" && typeof cic.postCommand === "function";
+        const statusElement = document.getElementById("connection");
+        statusElement.textContent = available
+          ? "Host bridge available"
+          : "Host bridge unavailable";
+        statusElement.classList.toggle("available", available);
+        return available;
+      }
 
+      document.querySelectorAll("[data-action]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const feedback = document.getElementById("feedback");
+          const message = document.getElementById("feedback-message");
+          feedback.classList.remove("error");
+          if (!updateHostStatus()) {
+            feedback.classList.add("error");
+            message.textContent =
+              "Host bridge unavailable. Open this page in the POS Webview to send commands.";
+            return;
+          }
+          const operationType = commandOperations[button.dataset.action];
+          button.dataset.originalDetail =
+            button.querySelector("small").textContent;
+          button.querySelector("small").textContent = "Waiting for POS";
+          button.classList.add("loading");
+          button.setAttribute("aria-busy", "true");
+          loadingCommands.set(operationType, button);
+          updateCommandButtons();
+          message.textContent =
+            button.querySelector("strong").textContent +
+            ": waiting for POS response.";
+          try {
+            window[button.dataset.action]();
+            button.classList.remove("triggered");
+            void button.offsetWidth;
+            button.classList.add("triggered");
+          } catch (error) {
+            stopCommandLoading(operationType);
+            feedback.classList.add("error");
+            message.textContent =
+              error instanceof Error ? error.message : String(error);
+          }
+        });
+        button.addEventListener("animationend", () =>
+          button.classList.remove("triggered"),
+        );
+      });
 
-</script>
-<header>
-    <h5>Javascript Operations</h5>
-</header>
-<br/>
-<br/>
-<br/>
-<div>
-    <table>
-
-        <tr>
-            <td><button type="button" onclick=toast()> Ping</button></td>
-            <td></td>
-
-        </tr>
-        <tr>
-            <td> <button type="button" onclick=addNewTab('http://www.yahoo.com')> Add New Tab</button></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><button type="button" onclick=readCard()>Read Card</button></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><button type="button" onclick=getSignature()>Signature</button></td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td> <button type="button" onclick=authCard()> Auth Card</button></td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td> <button type="button" onclick=authManual()> Auth Manual</button></td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td><button type="button" onclick=printReceipt()> Print Receipt</button></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><button type="button" onclick=readConfirmation()>Confirm</button></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><button type="button" onclick=readInputPhone()> Read Input PHONE</button></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><button type="button" onclick=readInputDate()> Read Input DATE</button></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><button type="button" onclick=readInputAmount()> Read Input AMOUNT</button></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><button type="button" onclick=readInputNumeric()> Read Input NUMERIC</button></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><button type="button" onclick=readInputAlphaNumeric()> Read Input ALPHA-NUMERIC</button></td>
-            <td></td>
-        </tr>
-
-
-        <tr>
-            <td><button type="button" onclick=requestTip()> Tip Request</button></td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td><button type="button" onclick=cancel()> Cancel</button></td>
-            <td></td>
-        </tr>
-
-    </table>
-
-    <br/>
-    <br/>
-    <br/>
-
-
-
-    <footer>
-        <p>TIPS Webview Mode</p>
-    </footer>
-
-</body>
+      window.addEventListener("focus", updateHostStatus);
+      window.addEventListener("DOMContentLoaded", () => {
+        if (window.lucide) window.lucide.createIcons();
+        updateHostStatus();
+      });
+      updateHostStatus();
+    </script>
+  </body>
 </html>
