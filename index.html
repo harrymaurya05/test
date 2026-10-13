@@ -431,364 +431,6 @@
           font-size: 10px;
         }
       }
-      .command-dialog {
-        width: 410px;
-        max-width: calc(100% - 32px);
-        max-height: calc(100dvh - 32px);
-        padding: 28px;
-        overflow-y: auto;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: white;
-        color: var(--ink);
-        box-shadow: none;
-      }
-      .command-dialog::backdrop {
-        background: #ffffff80;
-      }
-      .command-dialog[open] {
-        animation: reveal 0.25s ease both;
-      }
-      .loading-heading {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-      }
-      .loading-heading code {
-        font-size: 10px;
-        color: var(--muted);
-        overflow-wrap: anywhere;
-      }
-      .loading-live {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 10px;
-        color: var(--accent);
-        white-space: nowrap;
-      }
-      .loading-live::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: currentColor;
-        animation: waiting-pulse 1.8s ease-in-out infinite;
-      }
-      .loading-visual {
-        position: relative;
-        display: grid;
-        place-items: center;
-        height: 174px;
-        margin: 22px 0;
-        border-radius: 6px;
-        background:
-          radial-gradient(#d4e4d9 0.7px, transparent 0.7px) 0 0 / 12px 12px,
-          #f2f8f4;
-        overflow: hidden;
-      }
-      .loading-scene {
-        display: none;
-      }
-      [data-scene="signature"] .signature-scene,
-      [data-scene="card"] .card-scene,
-      [data-scene="input"] .input-scene,
-      [data-scene="receipt"] .receipt-scene,
-      [data-scene="symbol"] .symbol-scene {
-        display: block;
-      }
-      .signature-scene {
-        width: calc(100% - 20px);
-        max-width: 320px;
-        position: relative;
-        aspect-ratio: 320 / 130;
-      }
-      .signature-art {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-      .signature-baseline {
-        stroke: #c3d7c8;
-        stroke-width: 1;
-      }
-      .signature-stroke {
-        fill: none;
-        stroke: #276e53;
-        stroke-width: 2.3;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-dasharray: 1;
-        stroke-dashoffset: 1;
-      }
-      .signature-pen {
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        transform: translate(-3px, -22px);
-        color: #32644e;
-      }
-      .signature-pen svg {
-        width: 25px;
-        height: 25px;
-      }
-      .card-scene {
-        width: 168px;
-        height: 135px;
-        position: relative;
-      }
-      .reader-mouth {
-        position: absolute;
-        left: 13px;
-        right: 13px;
-        bottom: 16px;
-        height: 32px;
-        border-radius: 6px;
-        background: #c6d8cd;
-        border: 1px solid #a5bfad;
-      }
-      .reader-mouth::before {
-        content: "";
-        position: absolute;
-        top: 11px;
-        left: 14px;
-        right: 14px;
-        height: 6px;
-        background: #325744;
-        border-radius: 3px;
-      }
-      .waiting-card {
-        position: absolute;
-        left: 32px;
-        top: 10px;
-        width: 104px;
-        height: 71px;
-        padding: 13px;
-        background: #296e54;
-        border-radius: 6px;
-        color: #eef8f1;
-        box-shadow: 0 7px 14px #214d3020;
-        animation: card-wait 2.4s ease-in-out infinite;
-      }
-      .waiting-card svg {
-        width: 24px;
-        height: 24px;
-      }
-      .card-marks {
-        display: block;
-        width: 49px;
-        height: 4px;
-        margin-top: 9px;
-        border-radius: 2px;
-        background: #a1c9b0;
-      }
-      .input-scene {
-        width: 196px;
-        text-align: center;
-      }
-      .input-symbol {
-        display: inline-flex;
-        color: #6279a5;
-        margin-bottom: 16px;
-      }
-      .input-symbol svg {
-        width: 26px;
-        height: 26px;
-      }
-      .typing-field {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        padding: 19px;
-        background: white;
-        border: 1px solid #cbd5e4;
-        border-radius: 5px;
-      }
-      .typing-field span {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #7186b3;
-        animation: typing-wait 1.6s ease-in-out infinite;
-      }
-      .typing-field span:nth-child(2) {
-        animation-delay: 0.15s;
-      }
-      .typing-field span:nth-child(3) {
-        animation-delay: 0.3s;
-      }
-      .typing-field span:nth-child(4) {
-        animation-delay: 0.45s;
-      }
-      .receipt-scene {
-        position: relative;
-        width: 116px;
-        height: 132px;
-      }
-      .receipt-printer {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 13px;
-        height: 46px;
-        background: #c8d6cf;
-        border: 1px solid #afc3b7;
-        border-radius: 7px;
-      }
-      .receipt-paper {
-        position: absolute;
-        width: 78px;
-        height: 97px;
-        top: 32px;
-        left: 19px;
-        padding: 17px 12px;
-        border: 1px solid #d6ddd6;
-        background: white;
-        clip-path: polygon(
-          0 0,
-          100% 0,
-          100% 94%,
-          90% 100%,
-          80% 94%,
-          70% 100%,
-          60% 94%,
-          50% 100%,
-          40% 94%,
-          30% 100%,
-          20% 94%,
-          10% 100%,
-          0 94%
-        );
-        animation: receipt-wait 2.6s ease-in-out infinite;
-      }
-      .receipt-paper span {
-        display: block;
-        height: 3px;
-        margin-bottom: 10px;
-        background: #b6c9ba;
-      }
-      .receipt-paper span:last-child {
-        width: 60%;
-      }
-      .symbol-scene {
-        color: #547a68;
-      }
-      .symbol-scene svg {
-        width: 46px;
-        height: 46px;
-        stroke-width: 1.3;
-        animation: symbol-wait 2s ease-in-out infinite;
-      }
-      .command-dialog[data-loading-action="requestTip"] .loading-visual {
-        background-color: #fcf6ec;
-      }
-      .command-dialog[data-loading-action="requestTip"] .symbol-scene {
-        color: #a98046;
-      }
-      .command-dialog[data-loading-action="cancel"] .symbol-scene {
-        color: #aa5d51;
-      }
-      .loading-title {
-        font:
-          700 20px/1.4 "Manrope",
-          sans-serif;
-      }
-      .loading-description {
-        min-height: 38px;
-        margin-top: 8px;
-        font-size: 12px;
-        line-height: 1.6;
-        color: var(--muted);
-      }
-      .loading-footer {
-        margin-top: 22px;
-        padding-top: 17px;
-        border-top: 1px solid var(--line);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-      }
-      .loading-footer span {
-        color: var(--muted);
-        font-size: 10px;
-      }
-      .loading-cancel {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        border: 1px solid #e7cfc8;
-        border-radius: 5px;
-        padding: 9px 12px;
-        background: white;
-        color: #9a4c40;
-        font-size: 12px;
-        cursor: pointer;
-      }
-      .loading-cancel svg {
-        width: 14px;
-        height: 14px;
-      }
-      .loading-cancel:hover:not(:disabled) {
-        background: #fff4ef;
-      }
-      .loading-cancel:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 3px;
-      }
-      .loading-cancel:disabled {
-        opacity: 0.5;
-        cursor: wait;
-      }
-      @keyframes waiting-pulse {
-        50% {
-          opacity: 0.35;
-        }
-      }
-      @keyframes card-wait {
-        0%,
-        100% {
-          transform: translateY(0) rotate(-5deg);
-        }
-        50% {
-          transform: translateY(28px) rotate(0);
-        }
-      }
-      @keyframes typing-wait {
-        0%,
-        70%,
-        100% {
-          opacity: 0.25;
-          transform: translateY(0);
-        }
-        35% {
-          opacity: 1;
-          transform: translateY(-4px);
-        }
-      }
-      @keyframes receipt-wait {
-        0%,
-        100% {
-          transform: translateY(-14px);
-        }
-        65% {
-          transform: translateY(0);
-        }
-      }
-      @keyframes symbol-wait {
-        50% {
-          transform: translateY(-5px) rotate(-5deg);
-        }
-      }
-      @media (max-width: 400px) {
-        .command-dialog {
-          padding: 21px;
-        }
-        .loading-title {
-          font-size: 18px;
-        }
-      }
       @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -817,11 +459,9 @@
 
       function onCommandCompletion(operationType, result) {
         completeCommandLoading(operationType);
-        const responseMessage =
-          "Operation Result : " + operationType + "\n" + JSON.stringify(result);
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => alert(responseMessage));
-        });
+        alert(
+          "Operation Result : " + operationType + "\n" + JSON.stringify(result),
+        );
       }
 
       function cancel() {
@@ -1023,8 +663,8 @@ ANx[,y] - Alpha Numeric Entry
     <header>
       <div class="topbar">
         <div class="brand">
-          <span class="brand-icon"><i data-lucide="terminal"></i></span>ISV Web
-          Page
+          <span class="brand-icon"><i data-lucide="terminal"></i></span>TIPS
+          developer
         </div>
         <span class="mode">WEBVIEW / POS</span>
       </div>
@@ -1055,7 +695,7 @@ ANx[,y] - Alpha Numeric Entry
           <button class="command-button" type="button" data-action="authCard">
             <span class="button-icon"><i data-lucide="shield-check"></i></span
             ><span class="button-label"
-              ><strong>Auth card</strong><small>AUTH_CARD</small></span
+              ><strong>Authorize card</strong><small>AUTH_CARD</small></span
             ><i class="button-arrow" data-lucide="arrow-right"></i>
           </button>
           <button class="command-button" type="button" data-action="authManual">
@@ -1077,7 +717,7 @@ ANx[,y] - Alpha Numeric Entry
           <button class="command-button" type="button" data-action="requestTip">
             <span class="button-icon"><i data-lucide="hand-coins"></i></span
             ><span class="button-label"
-              ><strong>Tip</strong><small>TIP_REQUEST</small></span
+              ><strong>Request tip</strong><small>TIP_REQUEST</small></span
             ><i class="button-arrow" data-lucide="arrow-right"></i>
           </button>
           <button
@@ -1201,68 +841,9 @@ ANx[,y] - Alpha Numeric Entry
         ><span id="feedback-message">No commands sent.</span>
       </div>
       <footer>
-        <span> CIT Webview Mode</span><span>POS developer tools</span>
+        <span>TIPS Webview Mode</span><span>POS developer tools</span>
       </footer>
     </main>
-    <dialog
-      class="command-dialog"
-      id="command-loading"
-      aria-labelledby="loading-title"
-      aria-describedby="loading-description"
-    >
-      <div class="loading-heading">
-        <code id="loading-operation"></code
-        ><span class="loading-live">In progress</span>
-      </div>
-      <div class="loading-visual" id="loading-visual" aria-hidden="true">
-        <div class="loading-scene signature-scene">
-          <svg class="signature-art" viewBox="0 0 320 130">
-            <path class="signature-baseline" d="M22 108 H298" />
-            <path
-              class="signature-stroke"
-              id="signature-stroke"
-              pathLength="1"
-              d="M30 87 C48 69 83 16 69 28 C52 42 45 105 67 85 C78 74 80 42 71 59 C61 85 85 88 96 75 C109 54 98 60 94 78 C89 99 115 60 119 66 C123 71 105 88 117 84 C129 80 140 59 139 70 C134 93 150 77 160 69 C153 89 173 75 183 68 C173 90 196 78 207 73 C218 68 212 84 224 79 C241 72 252 70 263 74 M75 101 C119 91 215 96 279 86"
-            />
-          </svg>
-          <span class="signature-pen" id="signature-pen"
-            ><i data-lucide="pen-line"></i
-          ></span>
-        </div>
-        <div class="loading-scene card-scene">
-          <div class="reader-mouth"></div>
-          <div class="waiting-card">
-            <i data-lucide="credit-card"></i><span class="card-marks"></span>
-          </div>
-        </div>
-        <div class="loading-scene input-scene">
-          <span class="input-symbol" id="input-symbol"></span>
-          <div class="typing-field">
-            <span></span><span></span><span></span><span></span>
-          </div>
-        </div>
-        <div class="loading-scene receipt-scene">
-          <div class="receipt-printer"></div>
-          <div class="receipt-paper">
-            <span></span><span></span><span></span><span></span>
-          </div>
-        </div>
-        <div class="loading-scene symbol-scene" id="loading-symbol"></div>
-      </div>
-      <h2 class="loading-title" id="loading-title"></h2>
-      <p
-        class="loading-description"
-        id="loading-description"
-        role="status"
-        aria-live="polite"
-      ></p>
-      <div class="loading-footer">
-        <span>Awaiting POS response</span
-        ><button class="loading-cancel" id="loading-cancel" type="button">
-          <i data-lucide="circle-x"></i>Cancel
-        </button>
-      </div>
-    </dialog>
     <script>
       const commandOperations = {
         readCard: OperationType.READ_CARD,
@@ -1282,158 +863,6 @@ ANx[,y] - Alpha Numeric Entry
         cancel: OperationType.CANCEL,
       };
       const loadingCommands = new Map();
-      const loadingPresentations = {
-        readCard: [
-          "card",
-          "Waiting for card",
-          "Card read requested on the POS terminal.",
-        ],
-        authCard: [
-          "card",
-          "Authorizing card",
-          "Waiting for the terminal authorization response.",
-        ],
-        authManual: [
-          "input",
-          "Manual authorization",
-          "Waiting for manual entry on the POS terminal.",
-        ],
-        getSignature: [
-          "signature",
-          "Waiting for signature",
-          "Signature capture is active on the POS terminal.",
-        ],
-        requestTip: [
-          "symbol",
-          "Waiting for tip selection",
-          "Tip request is active on the POS terminal.",
-        ],
-        printReceipt: [
-          "receipt",
-          "Printing receipt",
-          "Waiting for the terminal print response.",
-        ],
-        readInputPhone: [
-          "input",
-          "Waiting for phone number",
-          "Phone entry is active on the POS terminal.",
-        ],
-        readInputAmount: [
-          "input",
-          "Waiting for amount",
-          "Amount entry is active on the POS terminal.",
-        ],
-        readInputDate: [
-          "input",
-          "Waiting for date",
-          "Date entry is active on the POS terminal.",
-        ],
-        readInputNumeric: [
-          "input",
-          "Waiting for numeric input",
-          "Numeric entry is active on the POS terminal.",
-        ],
-        readInputAlphaNumeric: [
-          "input",
-          "Waiting for text input",
-          "Alphanumeric entry is active on the POS terminal.",
-        ],
-        toast: [
-          "symbol",
-          "Sending ping",
-          "Waiting for the terminal message response.",
-        ],
-        addNewTab: [
-          "symbol",
-          "Opening tab",
-          "Waiting for the host tab response.",
-        ],
-        readConfirmation: [
-          "symbol",
-          "Waiting for confirmation",
-          "Confirmation request is active on the POS terminal.",
-        ],
-        cancel: [
-          "symbol",
-          "Cancelling operation",
-          "Cancellation requested. Waiting for the POS response.",
-        ],
-      };
-      const motionPreference = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      );
-      let signatureAnimation;
-
-      function animateWaitingSignature() {
-        cancelAnimationFrame(signatureAnimation);
-        const stroke = document.getElementById("signature-stroke");
-        const pen = document.getElementById("signature-pen");
-        const length = stroke.getTotalLength();
-        const started = performance.now();
-        function drawFrame(now) {
-          const progress = motionPreference.matches
-            ? 1
-            : Math.min(((now - started) % 3800) / 2700, 1);
-          const point = stroke.getPointAtLength(length * progress);
-          stroke.style.strokeDashoffset = String(1 - progress);
-          pen.style.left = (point.x / 320) * 100 + "%";
-          pen.style.top = (point.y / 130) * 100 + "%";
-          if (!motionPreference.matches)
-            signatureAnimation = requestAnimationFrame(drawFrame);
-        }
-        drawFrame(started);
-      }
-
-      function syncLoadingDialog() {
-        const dialog = document.getElementById("command-loading");
-        const button =
-          loadingCommands.get(OperationType.CANCEL) ||
-          loadingCommands.values().next().value;
-        cancelAnimationFrame(signatureAnimation);
-        if (!button) {
-          if (dialog.open) dialog.close();
-          return;
-        }
-        const action = button.dataset.action;
-        const [scene, title, description] = loadingPresentations[action];
-        dialog.dataset.loadingAction = action;
-        document.getElementById("loading-visual").dataset.scene = scene;
-        document.getElementById("loading-title").textContent = title;
-        document.getElementById("loading-description").textContent =
-          description;
-        document.getElementById("loading-operation").textContent =
-          commandOperations[action];
-        document.getElementById("loading-cancel").disabled =
-          action === "cancel";
-        const originalIcon =
-          button.querySelector(".button-icon").firstElementChild;
-        ["loading-symbol", "input-symbol"].forEach((id) => {
-          document
-            .getElementById(id)
-            .replaceChildren(originalIcon.cloneNode(true));
-        });
-        if (window.lucide) window.lucide.createIcons();
-        if (!dialog.open) dialog.showModal();
-        if (scene === "signature") animateWaitingSignature();
-      }
-
-      function cancelLoadingOperation() {
-        document.querySelector('[data-action="cancel"]').click();
-      }
-
-      document
-        .getElementById("loading-cancel")
-        .addEventListener("click", cancelLoadingOperation);
-      document
-        .getElementById("command-loading")
-        .addEventListener("cancel", (event) => {
-          event.preventDefault();
-          cancelLoadingOperation();
-        });
-      motionPreference.addEventListener("change", () => {
-        if (document.getElementById("command-loading").open)
-          syncLoadingDialog();
-      });
 
       function updateCommandButtons() {
         document.querySelectorAll("[data-action]").forEach((button) => {
@@ -1442,7 +871,6 @@ ANx[,y] - Alpha Numeric Entry
               ? loadingCommands.has(OperationType.CANCEL)
               : loadingCommands.size > 0;
         });
-        syncLoadingDialog();
       }
 
       function stopCommandLoading(operationType) {
