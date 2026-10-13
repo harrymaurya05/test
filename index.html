@@ -441,11 +441,10 @@
         border-radius: 8px;
         background: white;
         color: var(--ink);
-        box-shadow: 0 24px 90px #183a2826;
+        box-shadow: 0 4px 16px #183a280a;
       }
       .command-dialog::backdrop {
-        background: #18332840;
-        backdrop-filter: blur(3px);
+        background: #ffffff80;
       }
       .command-dialog[open] {
         animation: reveal 0.25s ease both;
@@ -818,9 +817,11 @@
 
       function onCommandCompletion(operationType, result) {
         completeCommandLoading(operationType);
-        alert(
-          "Operation Result : " + operationType + "\n" + JSON.stringify(result),
-        );
+        const responseMessage =
+          "Operation Result : " + operationType + "\n" + JSON.stringify(result);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => alert(responseMessage));
+        });
       }
 
       function cancel() {
